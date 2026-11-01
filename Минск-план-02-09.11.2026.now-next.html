@@ -1,0 +1,746 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Минск · план поездки 02–09 ноября 2026</title>
+<style>
+  :root{
+    --paper:#efece3; --surface:#faf8f3; --surface-2:#f3efe6;
+    --ink:#20272e; --muted:#69707a; --line:#ddd7c9;
+    --accent:#3c63a8; --accent-weak:#e4e9f3;
+    --rushnik:#a83a2e; --rushnik-weak:#f1e2dc; --gold:#a97c2a;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#14171b; --surface:#1b1f24; --surface-2:#21262c;
+      --ink:#e9e6dd; --muted:#98a0a8; --line:#2c333a;
+      --accent:#86a7e2; --accent-weak:#172639;
+      --rushnik:#e58a77; --rushnik-weak:#38211c; --gold:#d6a24a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14171b; --surface:#1b1f24; --surface-2:#21262c;
+    --ink:#e9e6dd; --muted:#98a0a8; --line:#2c333a;
+    --accent:#86a7e2; --accent-weak:#172639;
+    --rushnik:#e58a77; --rushnik-weak:#38211c; --gold:#d6a24a;
+  }
+  :root[data-theme="light"]{
+    --paper:#efece3; --surface:#faf8f3; --surface-2:#f3efe6;
+    --ink:#20272e; --muted:#69707a; --line:#ddd7c9;
+    --accent:#3c63a8; --accent-weak:#e4e9f3;
+    --rushnik:#a83a2e; --rushnik-weak:#f1e2dc; --gold:#a97c2a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif}
+  .wrap{max-width:900px; margin:0 auto; padding:0 20px 80px}
+
+  /* рушник-полоса */
+  .band{height:10px;
+    background:
+      repeating-linear-gradient(135deg,var(--rushnik) 0 7px,transparent 7px 14px),
+      repeating-linear-gradient(45deg,var(--accent) 0 7px,transparent 7px 14px);
+    opacity:.85;}
+
+  header.top{padding:34px 0 10px}
+  .now-next{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 0 18px; position:sticky; top:0; z-index:5; padding:10px 0 6px; background:color-mix(in srgb,var(--paper) 92%,transparent); backdrop-filter:blur(6px)}
+  .now-next .nn-card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 14px; min-width:0}
+  .now-next .nn-label{font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:0 0 4px}
+  .now-next .nn-title{font-size:14.5px; font-weight:600; margin:0 0 4px; line-height:1.3}
+  .now-next .nn-meta{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; margin:0}
+  @media (max-width:640px){.now-next{grid-template-columns:1fr}}
+  .eyebrow{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700}
+  h1{font-size:clamp(30px,5vw,46px); line-height:1.08; margin:.18em 0 .12em; text-wrap:balance; font-weight:600; letter-spacing:-.01em}
+  .sub{color:var(--muted); max-width:60ch; font-size:15.5px}
+  .sub b{color:var(--ink)}
+
+  .stats{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 8px}
+  .stat{flex:1 1 150px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:13px 16px}
+  .stat .v{font-size:23px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+  .stat .v small{font-size:14px; font-weight:600; color:var(--muted)}
+  .stat .l{font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:2px}
+
+  .legend{display:flex; flex-wrap:wrap; gap:16px; font-size:13px; color:var(--muted); margin:18px 0 6px; align-items:center}
+  .legend .key{display:inline-flex; align-items:center; gap:7px}
+  .dot{width:11px; height:11px; border-radius:3px; display:inline-block}
+  .dot.city{background:var(--accent)} .dot.trip{background:var(--rushnik)}
+
+  /* день */
+  .day{border-top:1px solid var(--line); padding:26px 0}
+  .day-grid{display:grid; grid-template-columns:150px 1fr; gap:26px}
+  .day-head{position:sticky; top:14px; align-self:start}
+  .date{display:flex; align-items:baseline; gap:8px; font-variant-numeric:tabular-nums}
+  .date .dow{font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700}
+  .date .dnum{font-size:40px; font-weight:600; line-height:1}
+  .date .mon{font-size:14px; color:var(--muted)}
+  .day-title{font-size:19px; font-weight:600; margin:.5em 0 .5em; text-wrap:balance; line-height:1.2}
+  .tag{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 10px; border-radius:999px}
+  .tag.city{color:var(--accent); background:var(--accent-weak)}
+  .tag.trip{color:var(--rushnik); background:var(--rushnik-weak)}
+
+  .timeline{list-style:none; margin:0; padding:0; position:relative}
+  .slot{display:grid; grid-template-columns:max-content minmax(0,1fr); column-gap:14px; padding:0 0 18px; position:relative; align-items:start}
+  .slot:last-child{padding-bottom:0}
+  .slot time{font-variant-numeric:tabular-nums; font-size:13px; font-weight:700; color:var(--muted); padding-top:1px; white-space:nowrap; line-height:1.25; position:relative; z-index:1; min-width:4.2rem}
+  .slot-body{border-left:2px solid var(--line); padding:0 0 2px 16px; margin-left:0; position:relative; min-width:0; overflow:visible}
+  .slot-body::before{content:""; position:absolute; left:-7px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--surface); border:2px solid var(--accent)}
+  .slot.trip .slot-body::before{border-color:var(--rushnik)}
+  .slot-body p{margin:.2em 0; font-size:15px}
+  .slot-body p.note{color:var(--muted); font-size:13.5px}
+  .slot h3{font-size:16.5px; margin:.1em 0 .2em; font-weight:600}
+
+  /* экскурсия-карточка */
+  .exc{background:var(--rushnik-weak); border:1px solid color-mix(in srgb,var(--rushnik) 30%,transparent); border-radius:12px; padding:13px 15px; margin-top:2px}
+  .exc .badge{display:inline-block; font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--rushnik); margin-bottom:5px}
+  .exc .meta{font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; margin:.35em 0 .6em}
+  .exc .meta b{color:var(--ink)}
+  a.buy{display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:700; text-decoration:none;
+    color:#fff; background:var(--rushnik); padding:8px 15px; border-radius:9px; transition:.14s}
+  a.buy:hover{filter:brightness(1.07)}
+  :root[data-theme="dark"] a.buy{color:#20120f}
+  @media (prefers-color-scheme:dark){a.buy{color:#20120f}}
+  a.buy:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+
+  /* прайс */
+  .pricewrap{margin-top:30px; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface)}
+  .pricewrap h2{font-size:18px; margin:0; padding:16px 18px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600}
+  table{border-collapse:collapse; width:100%; font-size:14.5px}
+  td,th{padding:10px 16px; text-align:left; border-bottom:1px solid var(--line)}
+  th{font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:700}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+  tr.total td{font-weight:700; border-top:2px solid var(--line); border-bottom:none; background:var(--surface-2)}
+  .tick{color:var(--rushnik); font-weight:800}
+
+  /* гастро */
+  .foodwrap{margin-top:30px; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface)}
+  .foodwrap > h2{font-size:18px; margin:0; padding:16px 18px; border-bottom:1px solid var(--line); background:var(--surface-2); font-weight:600}
+  .food-intro{padding:14px 18px; font-size:14.5px; color:var(--muted); border-bottom:1px solid var(--line); margin:0}
+  .food-intro b{color:var(--ink)}
+  .food-grid{display:grid; grid-template-columns:1fr 1fr; gap:0}
+  .food-card{padding:16px 18px; border-bottom:1px solid var(--line); border-right:1px solid var(--line)}
+  .food-card:nth-child(2n){border-right:none}
+  .food-card:nth-last-child(-n+2){border-bottom:none}
+  .food-card .tier{display:inline-block; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; padding:2px 8px; border-radius:999px; margin-bottom:6px}
+  .tier.top{color:var(--rushnik); background:var(--rushnik-weak)}
+  .tier.mid{color:var(--accent); background:var(--accent-weak)}
+  .tier.cafe{color:var(--gold); background:color-mix(in srgb,var(--gold) 18%,transparent)}
+  .tier.fast{color:var(--muted); background:var(--surface-2)}
+  .tier.skip{color:var(--muted); background:var(--surface-2); text-decoration:line-through}
+  .food-card h3{font-size:16px; margin:.15em 0 .35em; font-weight:600}
+  .food-card .addr{font-size:13px; color:var(--muted); margin:0 0 .45em}
+  .food-card p{font-size:14px; margin:.25em 0}
+  .food-card .quote{font-size:13.5px; color:var(--muted); font-style:italic; margin:.4em 0}
+  .food-card .check{font-size:13.5px; font-variant-numeric:tabular-nums; margin-top:.55em}
+  .food-card .check b{color:var(--ink)}
+  .food-sum{padding:0; border-top:1px solid var(--line)}
+  @media (max-width:640px){
+    .food-grid{grid-template-columns:1fr}
+    .food-card{border-right:none}
+    .food-card:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
+    .food-card:last-child{border-bottom:none}
+  }
+
+  .notes{margin-top:22px; font-size:13.5px; color:var(--muted); line-height:1.7}
+  .notes b{color:var(--ink)}
+  .foot{margin-top:26px; font-size:12.5px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px}
+
+  @media (max-width:640px){
+    .day-grid{grid-template-columns:1fr; gap:12px}
+    .day-head{position:static}
+    .date .dnum{font-size:32px}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .day{opacity:0; transform:translateY(8px); animation:rise .5s ease forwards}
+    @keyframes rise{to{opacity:1; transform:none}}
+  }
+</style>
+</head>
+<body>
+<div class="band"></div>
+<div class="wrap">
+  <header class="top">
+    <div class="now-next" id="now-next" aria-live="polite">
+      <div class="nn-card">
+        <p class="nn-label">Сейчас</p>
+        <p class="nn-title" id="nn-now-title">—</p>
+        <p class="nn-meta" id="nn-now-meta">—</p>
+      </div>
+      <div class="nn-card">
+        <p class="nn-label">Дальше</p>
+        <p class="nn-title" id="nn-next-title">—</p>
+        <p class="nn-meta" id="nn-next-meta">—</p>
+      </div>
+    </div>
+    <div class="eyebrow">Поездка в Минск · 2 человека</div>
+    <h1 class="serif">Минск · 02–09 ноября</h1>
+    <p class="sub">Заезд <b>2 ноября</b>, база — отель <b>«Виктория»</b> (пр. Победителей, 59) до <b>9 ноября включительно</b>, выезд <b>утром в понедельник 9-го</b> (без остановок по городу). Пять групповых экскурсий, четыре выезда, полный городской день в воскресенье + сборы в дорогу.</p>
+
+    <div class="stats">
+      <div class="stat"><div class="v">7+1</div><div class="l">ночей · утро выезда</div></div>
+      <div class="stat"><div class="v">5</div><div class="l">групповых экскурсий</div></div>
+      <div class="stat"><div class="v">4</div><div class="l">выезда за город</div></div>
+      <div class="stat"><div class="v">~43 000 <small>₽</small></div><div class="l">экскурсии + музеи, за двоих</div></div>
+    </div>
+
+    <div class="legend">
+      <span class="key"><span class="dot city"></span> День в городе</span>
+      <span class="key"><span class="dot trip"></span> Выездной день</span>
+      <span class="key"><span class="tick">🎟️</span> Групповая экскурсия — бронь по ссылке</span>
+      <span class="key"><span class="tick">🍽</span> Приём пищи — конкретное место в слоте</span>
+    </div>
+  </header>
+
+  <!-- ПН 02 -->
+  <section class="day">
+    <div class="day-grid">
+      <div class="day-head">
+        <div class="date"><span class="dow">Пн</span><span class="dnum">02</span><span class="mon">ноя</span></div>
+        <div class="day-title serif">В пути + заезд + вечерний Минск</div>
+        <span class="tag city">Город</span>
+      </div>
+      <ol class="timeline">
+        <li class="slot"><time>04:48</time><div class="slot-body"><p><b>Подъём</b> — день выезда в Минск.</p></div></li>
+        <li class="slot"><time>~06:00</time><div class="slot-body"><p>Прибытие на <b>вокзал отправления (дома)</b> к отправлению 06:18 — запас на контроль и посадку.</p></div></li>
+        <li class="slot trip"><time>06:18–13:24</time><div class="slot-body"><p>🚆 <b>Поезд в пути → Минск</b>.</p><p class="note">Отправление 06:18 · прибытие 13:24.</p></div></li>
+        <li class="slot"><time>13:24</time><div class="slot-body"><p>Прибытие <b>Минск-Пассажирский</b>. Такси / трансфер к отелю «Виктория» (пр. Победителей, 59).</p></div></li>
+        <li class="slot"><time>14:00</time><div class="slot-body"><p>Заселение в отель <b>«Виктория»</b> (пр. Победителей, 59), отдых.</p><p class="note">~1,5 км до Немиги / Фрунзенской. Рядом корпус «Виктория &amp; СПА» (59А) — SPA по желанию. Сайт: <a href="https://victoria1.hotel-victoria.by/" target="_blank" rel="noopener">victoria1.hotel-victoria.by</a>.</p></div></li>
+        <li class="slot"><time>~15:30</time><div class="slot-body"><p>🍽 <b>Поздний обед / перекус</b> — <b>ЛИДО</b> (Немига, 5; самообслуживание, ~25–45 BYN на двоих) или <b>Васильки</b> / <b>Mak.by</b>.</p><p class="note">До вечерней экскурсии топ не ставим. ЛИДО — классика «как дома» для приезда.</p></div></li>
+        <li class="slot trip"><time>17:00</time><div class="slot-body">
+          <div class="exc">
+            <span class="badge">🎟️ Групповая экскурсия</span>
+            <h3>Вечерняя экскурсия по Минску</h3>
+            <p>Автобус, 3 часа. Организованный обзор города и вечерняя подсветка — лёгкий старт в день заезда.</p>
+            <p class="meta"><b>от 65 BYN/чел</b> · ≈ 3 730 ₽ за двоих · предоплата на сайте / остаток на месте · карта РФ</p>
+            <a class="buy" href="https://www.sputnik8.com/ru/minsk/activities/25968-vechernyaya-ekskursiya-po-minsku" target="_blank" rel="noopener">Купить билет ↗</a>
+            <p class="note" style="margin-top:.5em">Смотровая НББ в тур <u>не входит</u> (~8 BYN) — лучше отдельно Сб/Вс по ссылке ниже.</p>
+          </div>
+        </div></li>
+        <li class="slot"><time>20:30</time><div class="slot-body"><p>🍽 <b>Ужин №1</b> — <b>Бульбашы</b> (пл. Свободы, 4) · Wheretoeat Belarus 2026 — <b>#8 в стране</b>, топ Даши.</p><p class="note">Бронь обязательна. Запасной той же лиги: <b>Камяніца</b> (Первомайская, 18; ~80–120 BYN на двоих). После — Зыбицкая / бар <b>Leone</b> (Зыбицкая, 4). <b>Литвины</b> — на Ср; прощальный вс — <b>МонеМане</b>. <b>Кухмистр</b> — запасной слот Ср/Пт, не прощальный.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ВТ 03 -->
+  <section class="day">
+    <div class="day-grid">
+      <div class="day-head">
+        <div class="date"><span class="dow">Вт</span><span class="dnum">03</span><span class="mon">ноя</span></div>
+        <div class="day-title serif">Гродно</div>
+        <span class="tag trip">Выезд · весь день</span>
+      </div>
+      <ol class="timeline">
+        <li class="slot"><time>~06:45</time><div class="slot-body"><p>🍽 <b>Завтрак</b> — в отеле (если включён) или быстрый <b>Mak.by</b> / кофе с собой. Выезд в 07:30 — без долгих кафе.</p></div></li>
+        <li class="slot trip"><time>07:30</time><div class="slot-body">
+          <div class="exc">
+            <span class="badge">🎟️ Групповая экскурсия · 14 ч</span>
+            <h3>«Легенды над Неманом»: большое путешествие в Гродно</h3>
+            <p>Самый европейский город Беларуси с гидом-историком: Старый и Новый замки, Фарный костёл, Коложская церковь, брусчатка Советской и набережная Немана.</p>
+            <p class="meta"><b>210 BYN/чел</b> · ≈ 12 050 ₽ за двоих · предоплата на сайте · карта РФ</p>
+            <a class="buy" href="https://www.sputnik8.com/ru/minsk/activities/93142-legendy-nad-nemanom-bolshoe-puteshestvie-v-grodno" target="_blank" rel="noopener">Купить билет ↗</a>
+            <p class="note" style="margin-top:.5em">Расписание: <b>вт и пт</b> 07:30 — Вт 03 подходит. Обед отдельно (~30 BYN/чел по желанию).</p>
+          </div>
+        </div></li>
+        <li class="slot"><time>~13:00</time><div class="slot-body"><p>🍽 <b>Обед в Гродно</b> (в тур <u>не включён</u>) — приоритет: <b>Карчма</b> (Советская, 31; белорусская, 09–23) или кафе на Советской у гида.</p><p class="note">Запасной быстрый: «Пельменная 1961» (Советская, 23) — отзывы смешанные, только если мало времени. Ориентир ~40–80 BYN на двоих.</p></div></li>
+        <li class="slot"><time>~21:30</time><div class="slot-body"><p>Возвращение в Минск.</p><p>🍽 <b>Поздний ужин</b> — только быстрый: <b>Mak.by</b> (Немига) / <b>Васильки</b> / <b>ЛИДО</b>. Топы не бронируем после 14 ч выезда.</p><p class="note">Логистика: после 21:30 только ось <b>Немига / Победителей</b> к «Виктории» — не уходить в Верхний город.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- СР 04 -->
+  <section class="day">
+    <div class="day-grid">
+      <div class="day-head">
+        <div class="date"><span class="dow">Ср</span><span class="dnum">04</span><span class="mon">ноя</span></div>
+        <div class="day-title serif">БелАЗ + военная память</div>
+        <span class="tag trip">Выезд · полдня</span>
+      </div>
+      <ol class="timeline">
+        <li class="slot"><time>~09:00</time><div class="slot-body"><p>🍽 <b>Завтрак</b> — приоритет: <b>отель</b> / <b>Mak.by</b> / кофе у точки сбора. <b>Зерно</b> (пр. Независимости, 46) — только если не крюк к Красному костёлу / вокзалу.</p><p class="note">Логистика: Зерно 46 перед БелАЗом часто лишний крюк. Синюю птицу — на Пт/Вс.</p></div></li>
+        <li class="slot trip"><time>11:00</time><div class="slot-body">
+          <div class="exc">
+            <span class="badge">🎟️ Групповая экскурсия · ~4–4,5 ч</span>
+            <h3>БелАЗ — экскурсия на завод в Жодино</h3>
+            <p>Музей завода, сборочные цеха, выставочная площадка с гигантами (в т.ч. БелАЗ-75710). Замена дневной обзорной: другой «вау», без дубля с вечерним Минском.</p>
+            <p class="meta"><b>135–150 BYN/чел</b> · ≈ 7 810–8 610 ₽ за двоих · предоплата на сайте · карта РФ</p>
+            <a class="buy" href="https://www.sputnik8.com/ru/minsk/activities/25965-belaz-brend-belarusi" target="_blank" rel="noopener">Купить билет ↗</a>
+            <p class="note" style="margin-top:.5em">Ср 04: слоты <b>11:00</b> (наш) и 17:00. Сбор: Красный костёл / вокзал / Ратуша — смотри вариант при брони. Катание в кабине — <b>заранее</b>, +90–120 BYN, не на месте. Возврат ~15:30.</p>
+          </div>
+        </div></li>
+        <li class="slot"><time>~15:45</time><div class="slot-body"><p>🍽 <b>Поздний обед</b> — лучше <b>Васильки</b> (Победителей, 9) по оси к отелю; иначе Независимости, 16 / <b>Сваі / Свои</b> (Независимости, 22; ~30–70 BYN на двоих).</p><p class="note">Настойки в Васильках — плюс Даши. Победителей 9 — самый короткий путь к «Виктории».</p></div></li>
+        <li class="slot"><time>~16:30</time><div class="slot-body"><p><b>Музей истории Великой Отечественной войны</b> — один из лучших в мире, самостоятельно.</p><p class="note">~12 BYN/чел · вход на месте. Если мало сил после завода — <b>пропустить</b> (Пт утро занято Страной мини + Аливарией; перед Хатынью слот не ставим).</p></div></li>
+        <li class="slot"><time>19:00</time><div class="slot-body"><p>🍽 <b>Ужин №2</b> — <b>Литвины</b> (Свердлова, 2) · Wheretoeat 2026 — <b>«Лучший ресторан белорусской кухни»</b> + топ Даши.</p><p class="note">Бронь. Запасной той же лиги: <b>Кухмистр</b> (К. Маркса, 40; slow food / шляхта, ~160–200 BYN на двоих ужин) или <b>Камяніца</b>.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ЧТ 05 -->
+  <section class="day">
+    <div class="day-grid">
+      <div class="day-head">
+        <div class="date"><span class="dow">Чт</span><span class="dnum">05</span><span class="mon">ноя</span></div>
+        <div class="day-title serif">Мир + Несвиж</div>
+        <span class="tag trip">Выезд · весь день</span>
+      </div>
+      <ol class="timeline">
+        <li class="slot"><time>~07:15</time><div class="slot-body"><p>🍽 <b>Завтрак</b> — отель или <b>Mak.by</b> (ранний выезд в 08:00).</p></div></li>
+        <li class="slot trip"><time>08:00</time><div class="slot-body">
+          <div class="exc">
+            <span class="badge">🎟️ Групповая экскурсия · до 11 ч</span>
+            <h3>Несвижский дворец и Мирский замок</h3>
+            <p>Два объекта ЮНЕСКО: дворец Радзивиллов с парком, Фарный костёл в Несвиже и готический Мирский замок. Входные билеты, экскурсии внутри и обед — включены.</p>
+            <p class="meta"><b>от 165 BYN/чел</b> · ≈ 9 470 ₽ за двоих · обед — опция при брони · карта РФ</p>
+            <a class="buy" href="https://www.sputnik8.com/ru/minsk/activities/89484-ekskursiya-v-nesvizhskiy-dvorets-i-mirskiy-zamok" target="_blank" rel="noopener">Купить билет ↗</a>
+          </div>
+        </div></li>
+        <li class="slot"><time>~13:00</time><div class="slot-body"><p>🍽 <b>Обед</b> — <b>включён в тур</b> (Мир/Несвиж). Отдельное место в Минске не бронируем.</p></div></li>
+        <li class="slot"><time>~19:00</time><div class="slot-body"><p>Возвращение в Минск.</p><p>🍽 <b>Лёгкий ужин</b> — <b>Васильки</b> / <b>Mak.by</b> / пиво и закуски в <b>Раковский Бровар</b> (Витебская, 10; своя варка, ~70–130 BYN на двоих) — если ещё есть силы.</p><p class="note">Обед уже в туре. Логистика: Немига / Победителей / Бровар у <b>Фрунзенской</b> — удобнее топов в Верхнем городе. Опционально: аквапарк «Лебяжий» (~60 BYN за двоих).</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ПТ 06 -->
+  <section class="day">
+    <div class="day-grid">
+      <div class="day-head">
+        <div class="date"><span class="dow">Пт</span><span class="dnum">06</span><span class="mon">ноя</span></div>
+        <div class="day-title serif">Страна мини → Аливария → арт и гастро</div>
+        <span class="tag city">Город · самостоятельно</span>
+      </div>
+      <ol class="timeline">
+        <li class="slot"><time>09:20–10:00</time><div class="slot-body"><p>🍽 <b>Завтрак</b> — отель / <b>Why Knot?</b> (Володарского, 21) / <b>Зерно</b>. Выход к 10:00, чтобы успеть к «Стране мини».</p></div></li>
+        <li class="slot"><time>10:20–10:30</time><div class="slot-body"><p>Прибытие в музей <b>«Страна мини»</b> (пр. Независимости 25) — интерактивные макеты.</p><p class="note">~15 BYN/чел · визит <b>~1 ч</b> (не растягивать): выход к <b>~11:30</b>, иначе не успеть к Аливарии.</p></div></li>
+        <li class="slot"><time>11:30–12:10</time><div class="slot-body"><p>🍽 <b>Лёгкий обед / перекус рядом</b> — <b>Mak.by</b> / <b>Васильки</b> / стрит у Независимости (быстро, без топов). <b>Октябрьскую</b> сегодня не ставим.</p></div></li>
+        <li class="slot"><time>12:15–12:45</time><div class="slot-body"><p>🚕 <b>Переезд</b> Независимости 25 → <b>Киселёва, 30</b> (Аливария).</p><p class="note">Такси <b>~10–15 мин</b> (~3–4 км); с запасом на пробки — выезд не позже <b>12:20</b>. Пешком/транспорт дольше (~20–30 мин) — тогда выходить сразу после музея без долгого обеда. Цель: быть у входа к <b>12:45–12:50</b>.</p></div></li>
+        <li class="slot trip"><time>13:00</time><div class="slot-body">
+          <div class="exc">
+            <span class="badge">🎟️ Исторический маршрут · 1,5 ч · 18+ · 26 мест</span>
+            <h3>Аливария — музей + производство + дегустация</h3>
+            <p>Официальная экскурсия: исторический корпус, часть цеха, дегустация <b>2 сортов</b>. Адрес: <b>ул. Киселёва, 30</b>. Прибыть <b>к 13:00</b> (лучше за 10–15 мин); запись заранее; оплата часто на месте.</p>
+            <p class="meta"><b>40 BYN/чел</b> (льгота <b>35 BYN</b>) · ≈ 2 300 ₽ за двоих по курсу плана · вт–сб</p>
+            <a class="buy" href="https://alivariamuseum.by/booking/8641ef5e-f783-4047-aabf-f763c370d759" target="_blank" rel="noopener">Запись · Исторический маршрут ↗</a>
+            <p class="note" style="margin-top:.5em">Тел. +375 (29) 500-17-55 · <a href="https://alivariamuseum.by/" target="_blank" rel="noopener">alivariamuseum.by</a>. Слот <b>13:00–14:30</b> (26 мест) — подтвердить при брони.</p>
+          </div>
+        </div></li>
+        <li class="slot"><time>~14:45</time><div class="slot-body"><p><b>Национальный художественный музей</b> — коротко (~45–60 мин), без полного обхода.</p><p class="note">~10 BYN/чел · сжато после Аливарии.</p></div></li>
+        <li class="slot"><time>~16:00</time><div class="slot-body"><p><b>Комаровский рынок</b> — быстрый заход: сыры / гастро-ряды (не полный обед).</p><p class="note">Логистика: Комаровка → к Синей птице сразу <b>метро/такси 15–25 мин</b>, не пешком через весь город.</p></div></li>
+        <li class="slot"><time>~17:30</time><div class="slot-body"><p>🍽 <b>Кофе + тортики</b> — <b>Синяя птица</b> (Юрово-Завальная, 15) · обязательно по Даше.</p><p class="note">Дальше ужин в том же Раковском кластере — пешком до Бровара / Палюшкі (метро Фрунзенская).</p></div></li>
+        <li class="slot"><time>19:30</time><div class="slot-body"><p>🍽 <b>Ужин · кластер Раковское</b> — вариант A: <b>Палюшкі</b> (Витебская, 7; рядом; Даше спорно). Вариант B (надёжнее): <b>Раковский Бровар</b> (Витебская, 10; пивоварня с 1997, драники/мачанка). Вариант C: <b>Кухмистр</b>, если ещё не были.</p><p class="note">Птица → Бровар — пешком. После — Зыбицкая: <b>Чердак</b> / <b>Leone</b>. Запасной быстрый: Mak.by.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- СБ 07 -->
+  <section class="day">
+    <div class="day-grid">
+      <div class="day-head">
+        <div class="date"><span class="dow">Сб</span><span class="dnum">07</span><span class="mon">ноя</span></div>
+        <div class="day-title serif">Хатынь + город</div>
+        <span class="tag trip">Выезд · полдня</span>
+      </div>
+      <ol class="timeline">
+        <li class="slot"><time>~08:00</time><div class="slot-body"><p>🍽 <b>Завтрак</b> — отель (выезд на Хатынь в 09:00).</p></div></li>
+        <li class="slot trip"><time>09:00</time><div class="slot-body">
+          <div class="exc">
+            <span class="badge">🎟️ Групповая экскурсия · 5 ч</span>
+            <h3>Хатынь и Курган Славы — с посещением музея</h3>
+            <p>Два мемориала военной памяти: сожжённая деревня Хатынь и Курган Славы, с заездом в музей.</p>
+            <p class="meta"><b>85 BYN/чел</b> · ≈ 4 880 ₽ за двоих · предоплата на сайте / остаток на месте · карта РФ</p>
+            <a class="buy" href="https://www.sputnik8.com/ru/minsk/activities/56450-ekskursiya-v-hatyn-i-na-kurgan-slavy-iz-minska" target="_blank" rel="noopener">Купить билет ↗</a>
+            <p class="note" style="margin-top:.5em">Базовый тур — чаще <b>вт/пт</b>. На Сб 07 в календаре может не быть: тогда бери <b>вечерний</b> вариант (ежедневнее). На Пт 06 <u>не переносим</u> — день занят Страной мини + Аливарией.</p>
+            <a class="buy" href="https://www.sputnik8.com/ru/minsk/activities/94621-gruppovaya-ekskursiya-v-memorialnyy-kompleks-hatyn" target="_blank" rel="noopener" style="margin-top:.4em">Альтернатива · ~76 BYN/чел ↗</a>
+          </div>
+        </div></li>
+        <li class="slot"><time>14:30</time><div class="slot-body"><p>🍽 <b>Обед</b> — <b>Васильки</b> (Победителей, 9 / Galleria) или <b>ЛИДО</b> (Независимости, 49 — ближе к библиотеке).</p><p class="note">После Хатыни — спокойно. Филиал под маршрут: <b>Победителей 9</b> → к отелю; <b>ЛИДО Независимости 49</b> → сразу на смотровую НББ.</p></div></li>
+        <li class="slot trip"><time>16:00</time><div class="slot-body">
+          <div class="exc">
+            <span class="badge">🎟️ Билет онлайн</span>
+            <h3>Смотровая Нацбиблиотеки</h3>
+            <p>Подъём на 22–23 этаж, 11:00–22:30 (последний подъём 22:30). Касса/онлайн; техперерывы каждые 2 ч по :00–:15.</p>
+            <p class="meta"><b>10–15 BYN/чел</b> · ≈ 570–860 ₽ за двоих · оплата онлайн на nlb.by</p>
+            <a class="buy" href="https://www.nlb.by/content/chitatelyu/bilety-online/" target="_blank" rel="noopener">Купить билет ↗</a>
+            <p class="note" style="margin-top:.5em">Фильтр «Обзорная площадка» → дата Сб 07. Запасной: центр / Зыбицкая. Парк Горького — не планируем.</p>
+          </div>
+        </div></li>
+        <li class="slot"><time>19:30</time><div class="slot-body"><p>🍽 <b>Ужин</b> — повтор фаворита недели (<b>Бульбашы</b> / <b>Литвины</b>) <b>или</b> спокойный <b>Раковский Бровар</b>.</p><p class="note">Прощальный ужин — на <b>воскресенье</b>. После тяжёлого дня <b>Бровар у Фрунзенской</b> ближе к «Виктории», чем топы в Верхнем городе.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ВС 08 — полный день -->
+  <section class="day">
+    <div class="day-grid">
+      <div class="day-head">
+        <div class="date"><span class="dow">Вс</span><span class="dnum">08</span><span class="mon">ноя</span></div>
+        <div class="day-title serif">Старый город + прощание</div>
+        <span class="tag city">Город · полный день</span>
+      </div>
+      <ol class="timeline">
+        <li class="slot"><time>09:00</time><div class="slot-body"><p>🍽 <b>Завтрак</b> — <b>Синяя птица</b> (вс с 9:00) или <b>Зерно</b> (Независимости, 46).</p></div></li>
+        <li class="slot"><time>10:15</time><div class="slot-body"><p><b>Верхний город пешком</b> (из датасета ★★★, ещё не закрывали отдельным днём): пл. Свободы → ратуша → соборы → дворики.</p><p class="note">~1–1,5 ч, бесплатно. Темп спокойный.</p></div></li>
+        <li class="slot"><time>11:45</time><div class="slot-body"><p><b>Троицкое предместье</b> + набережная Свислочи → <b>Остров слёз</b> (Остров Мужества и скорби).</p><p class="note">Открыточный Минск + мемориал; 40–60 мин. Парк Горького рядом — <b>не заходим</b>.</p></div></li>
+        <li class="slot"><time>13:15</time><div class="slot-body"><p>🍽 <b>Обед</b> — <b>Камяніца</b> (Первомайская, 18; рулька, драники, настойки) <b>или</b> <b>Драничная №1</b> / <b>Панскі дранік</b>.</p><p class="note">Бронь Камяніцы желательна в вс. Чек ~80–120 BYN на двоих.</p></div></li>
+        <li class="slot"><time>15:00</time><div class="slot-body"><p><b>Пл. Независимости</b>: Красный костёл внутри → ГУМ/ЦУМ (сувениры, лён, конфеты) → при желании купол «Столица».</p><p class="note">Практичный слот: закрыть подарки до вечера.</p></div></li>
+        <li class="slot trip"><time>16:30</time><div class="slot-body">
+          <div class="exc">
+            <span class="badge">🎟️ Билет онлайн</span>
+            <h3>Смотровая Нацбиблиотеки</h3>
+            <p>Если не успели в Сб. Иначе — свободный час: опера/сквер, повтор квартала, отель/SPA.</p>
+            <p class="meta"><b>10–15 BYN/чел</b> · ≈ 570–860 ₽ за двоих · 11:00–22:30 ежедневно</p>
+            <a class="buy" href="https://www.nlb.by/content/chitatelyu/bilety-online/" target="_blank" rel="noopener">Купить билет ↗</a>
+          </div>
+        </div></li>
+        <li class="slot"><time>18:00</time><div class="slot-body"><p>🛒 <b>Сбор еды в дорогу</b> — супермаркет у отеля / <b>Евроопт / Green</b> / гастро-ряды (что не купили на Комаровке в Пт). Список — блок ниже.</p><p class="note">Завтра утром по городу <b>нигде не заходим</b>: только отель → вокзал/аэропорт.</p></div></li>
+        <li class="slot"><time>19:45</time><div class="slot-body"><p>🍽 <b>Прощальный ужин</b> — <b>МонеМане</b> (пр. Независимости, 18) · авторская кухня, сет «Ассамбляж» <b>~195 BYN/чел</b> (≈ 390 BYN / ~11 200 ₽ на двоих без сопровождения).</p><p class="note">Бронь обязательна: <a href="https://monemane.by/form" target="_blank" rel="noopener">monemane.by/form</a> · +375 29 618-18-51. Основное меню и сет 16:00–23:00, бар до 00:00. После — сразу в отель собирать чемоданы (сет занимает вечер).</p></div></li>
+        <li class="slot"><time>~22:00</time><div class="slot-body"><p>Отель: дособрать сумки, положить дорожную еду сверху, зарядить телефоны, документы на видное место.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ПН 09 — только выезд -->
+  <section class="day">
+    <div class="day-grid">
+      <div class="day-head">
+        <div class="date"><span class="dow">Пн</span><span class="dnum">09</span><span class="mon">ноя</span></div>
+        <div class="day-title serif">Выезд утром</div>
+        <span class="tag city">Только трансфер</span>
+      </div>
+      <ol class="timeline">
+        <li class="slot"><time>~07:00</time><div class="slot-body"><p>🍽 <b>Завтрак только в отеле</b> (если включён) — плотно. В город / кафе <b>не выходим</b>.</p></div></li>
+        <li class="slot"><time>~08:30</time><div class="slot-body"><p>Чек-аут + трансфер отель «Виктория» → <b>Минск-Пассажирский</b> (к отправлению 09:50).</p><p class="note">Дорожная еда уже в сумке с вечера. На станции максимум — вода/кофе to-go; план А — ничего не покупать в спешке.</p></div></li>
+        <li class="slot trip"><time>09:50–17:59</time><div class="slot-body"><p>🚆 <b>Поезд из Минска домой</b>.</p><p class="note">Отправление 09:50 · прибытие домой 17:59.</p></div></li>
+        <li class="slot"><time>17:59</time><div class="slot-body"><p>Прибытие <b>домой</b> (вокзал прибытия).</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ЕДА В ДОРОГУ -->
+  <div class="pricewrap" style="margin-top:30px">
+    <h2 class="serif">🛒 Еда в поезд / дорогу (собрать в вс вечером)</h2>
+    <div style="padding:14px 18px; font-size:14.5px; color:var(--muted)">
+      <p style="margin:0 0 10px; color:var(--ink)"><b>Зачем в вс:</b> в пн утром заходить некуда и незачем. Покупаем после сувениров / перед ужином, храним в номере (холодильник — если есть).</p>
+      <table>
+        <thead><tr><th>Что взять</th><th>Зачем</th><th>Где купить</th></tr></thead>
+        <tbody>
+          <tr><td>Вода 1–1,5 л ×2</td><td>База; в поезде дорого/неудобно</td><td>Евроопт / Green / у отеля</td></tr>
+          <tr><td>Бутерброды / лаваш с сыром·ветчиной·овощами</td><td>Основной приём в пути</td><td>Собрать самим; хлеб/лаваш + нарезка в супермаркете</td></tr>
+          <tr><td>Сыр, колбаса нарезка (вакуум)</td><td>Добор белка, не крошится</td><td>Супермаркет; небольшие порции</td></tr>
+          <tr><td>Яблоки / бананы</td><td>Фрукт без возни</td><td>Супермаркет или остаток с Комаровки</td></tr>
+          <tr><td>Орехи, шоколад, печенье</td><td>Перекус «на скуку»</td><td>Любой магазин; белорусский шоколад — ещё и сувенир себе</td></tr>
+          <tr><td>Влажные салфетки + бумажные</td><td>Гигиена в вагоне</td><td>Супермаркет</td></tr>
+          <tr><td>Термос с чаем/кофе (опц.)</td><td>Если есть в отеле/свой</td><td>Залить утром в отеле</td></tr>
+          <tr><td>Запасной быстрый сет</td><td>Если лень собирать бутеры</td><td><b>ЛИДО</b> навынос вечером вс (Немига) — остынет, но съедобно</td></tr>
+        </tbody>
+      </table>
+      <p style="margin:12px 0 0; font-size:13.5px"><b>Не брать:</b> супы, сильные запахи (рыба), тортики «Синей птицы» (помнутся), лишнее пиво (тяжело + таможня/вагон). Личные продукты в поезд РФ обычно ок в разумном объёме; алкоголь — по правилам перевозчика.</p>
+      <p style="margin:8px 0 0; font-size:13.5px"><b>Ориентир бюджета:</b> ~25–45 BYN на двоих за весь дорожный набор.</p>
+    </div>
+  </div>
+
+  <!-- ГАСТРО -->
+  <div class="foodwrap">
+    <h2 class="serif">Гастро-карта · расширенный ресерч</h2>
+    <p class="food-intro">Слоты 🍽 уже в таймлайне. Ниже — пул мест с чеками <b>на двоих</b> (1 BYN ≈ 28,7 ₽). Источники: <b>Wheretoeat Belarus 2026</b>, BestBelarus, Onliner/coffeeroom, 2ГИС/Яндекс, отзыв Даши. Даша = личный фильтр; премия = внешний ориентир качества.</p>
+    <div class="food-grid">
+      <article class="food-card">
+        <span class="tier top">WTE #8 · Даша топ</span>
+        <h3>Бульбашы</h3>
+        <p class="addr">пл. Свободы, 4 (+ сеть)</p>
+        <p>Современная белорусская. В топ-10 страны 2026.</p>
+        <p class="quote">«Прям оч вкусно» — Даша</p>
+        <p class="check"><b>~100–140 BYN</b> · ≈ 2 900–4 000 ₽ · бронь</p>
+      </article>
+      <article class="food-card">
+        <span class="tier top">Лучшая бел. кухня · Даша</span>
+        <h3>Литвины</h3>
+        <p class="addr">Свердлова, 2 (+ 3 филиала)</p>
+        <p>Победитель номинации WTE 2026 «лучшая белорусская кухня».</p>
+        <p class="quote">В одном ряду с Бульбашы у Даши</p>
+        <p class="check"><b>~110–150 BYN</b> · ≈ 3 150–4 300 ₽ · бронь</p>
+      </article>
+      <article class="food-card">
+        <span class="tier top">Классика · slow food</span>
+        <h3>Кухмистр</h3>
+        <p class="addr">К. Маркса, 40</p>
+        <p>Шляхетская/белорусская: верещака, колдуны, крамбамбуля. Любимчик гидов.</p>
+        <p class="check"><b>~160–200 BYN</b> ужин · ≈ 4 600–5 750 ₽ · бронь +375 29 119-49-00</p>
+      </article>
+      <article class="food-card">
+        <span class="tier top">Аутентика</span>
+        <h3>Камяніца</h3>
+        <p class="addr">Первомайская, 18</p>
+        <p>Рулька, драники, сеты настоек. Этно-интерьер.</p>
+        <p class="check"><b>~80–120 BYN</b> · ≈ 2 300–3 450 ₽ · бронь +375 44 794-51-24</p>
+      </article>
+      <article class="food-card">
+        <span class="tier mid">Даша · сеть</span>
+        <h3>Васильки</h3>
+        <p class="addr">Независимости 16 · Победителей 9 · др.</p>
+        <p>Народная кухня, быстро. Настойки — фишка.</p>
+        <p class="quote">«Не вау, но настойки вкусные»</p>
+        <p class="check"><b>~50–90 BYN</b> · ≈ 1 450–2 600 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier mid">Пивоварня · Раковское</span>
+        <h3>Раковский Бровар</h3>
+        <p class="addr">Витебская, 10 (с 1997)</p>
+        <p>Своё пиво, драники, мачанка, рулька. Рядом Синяя птица / Палюшкі.</p>
+        <p class="check"><b>~70–130 BYN</b> · ≈ 2 000–3 750 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier mid">Спорно · Даша</span>
+        <h3>Палюшкі</h3>
+        <p class="addr">Витебская, 7</p>
+        <p>Полесье, модно. Логистика с Синей птицей идеальна.</p>
+        <p class="quote">«Даше не зашло, остальным — да»</p>
+        <p class="check"><b>~120–160 BYN</b> · ≈ 3 450–4 600 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier mid">Бюджет · самообслуживание</span>
+        <h3>ЛИДО</h3>
+        <p class="addr">Немига 5 · Независимости 49 · Кульман 5А</p>
+        <p>50+ горячих, много картофеля, «как дома». Идеально после дороги / перед отъездом.</p>
+        <p class="check"><b>~25–50 BYN</b> · ≈ 720–1 450 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier cafe">Даша · тортики</span>
+        <h3>Синяя птица</h3>
+        <p class="addr">Юрово-Завальная, 15</p>
+        <p>Гастропекарня: ватрушки, чизкейки, завтраки.</p>
+        <p class="check"><b>~30–50 BYN</b> · ≈ 860–1 450 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier cafe">Спешелти</span>
+        <h3>Зерно</h3>
+        <p class="addr">Независимости 46 · Интернациональная 27б · Козлова 6</p>
+        <p>Своя обжарка, стабильная классика. Будни с 7:00 — удобно до экскурсий.</p>
+        <p class="check"><b>~20–40 BYN</b> · ≈ 570–1 150 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier cafe">Спешелти · центр</span>
+        <h3>Why Knot?</h3>
+        <p class="addr">Володарского, 21</p>
+        <p>Творожные кольца, фильтр, авторский раф. Сильный локальный хит.</p>
+        <p class="check"><b>~25–45 BYN</b> · ≈ 720–1 300 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier top">Прощальный · вс</span>
+        <h3>МонеМане</h3>
+        <p class="addr">пр. Независимости, 18</p>
+        <p>Авторская кухня, сет «Ассамбляж». Прощальный ужин вместо Кухмистра. Октябрьскую / Middle Ground в пятницу не ставим.</p>
+        <p class="check"><b>~390 BYN</b> на двоих · ≈ 11 200 ₽ · бронь <a href="https://monemane.by/form" target="_blank" rel="noopener">monemane.by/form</a></p>
+      </article>
+      <article class="food-card">
+        <span class="tier fast">Даша · фаст</span>
+        <h3>Mak.by</h3>
+        <p class="addr">Немига 12Б и сеть</p>
+        <p>Бывший McD. Поздние возвраты с выездов.</p>
+        <p class="quote">«Мак Дэй 😄 вкусно»</p>
+        <p class="check"><b>~25–40 BYN</b> · ≈ 720–1 150 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier mid">Гродно · обед</span>
+        <h3>Карчма (Гродно)</h3>
+        <p class="addr">Советская, 31 · 09–23</p>
+        <p>Белорусская на главной пешеходной. План B: кафе по совету гида.</p>
+        <p class="check"><b>~40–80 BYN</b> · ≈ 1 150–2 300 ₽</p>
+      </article>
+      <article class="food-card">
+        <span class="tier top">Опция «не бел.»</span>
+        <h3>Charlie / Zalkind / Bergamo</h3>
+        <p class="addr">центр (см. WTE топ-10)</p>
+        <p>Если надоест национальное. Чек заметно выше.</p>
+        <p class="check"><b>~200–350 BYN</b> · ≈ 5 750–10 000 ₽ · только с бронью</p>
+      </article>
+      <article class="food-card">
+        <span class="tier mid">Вечер · бары</span>
+        <h3>Зыбицкая / Персонажи</h3>
+        <p class="addr">Зыбицкая · бар года WTE — «Персонажи»</p>
+        <p>После ужина: Чердак, Leone (Зыбицкая, 4), крафт.</p>
+        <p class="check"><b>~40–100 BYN</b> напитки на двоих</p>
+      </article>
+    </div>
+    <div class="food-sum">
+      <table>
+        <thead><tr><th>Сценарий на двоих за поездку</th><th class="num">BYN</th><th class="num">≈ ₽</th></tr></thead>
+        <tbody>
+          <tr><td>3 топ-ужина (Бульбашы + Литвины + МонеМане ~390) + кофе ×4</td><td class="num">~680–840</td><td class="num">19–24 тыс.</td></tr>
+          <tr><td>+ обеды сеть/ЛИДО/стрит + выездные перекусы</td><td class="num">~300–450</td><td class="num">9–13 тыс.</td></tr>
+          <tr><td>6–7 дней реалистичный микс (с МонеМане, без Charlie-лиги)</td><td class="num">~1 000–1 450</td><td class="num">29–42 тыс.</td></tr>
+          <tr class="total"><td>Гастро сверх экскурсий (обновлённый ориентир)</td><td class="num">~1 250</td><td class="num">~35 900</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ПРАЙС -->
+  <div class="pricewrap">
+    <h2 class="serif">Прайс-лист · на двоих</h2>
+    <div style="overflow-x:auto">
+    <table>
+      <thead><tr><th>День</th><th>Активность</th><th class="num">BYN</th><th class="num">≈ ₽</th></tr></thead>
+      <tbody>
+        <tr><td>Пн</td><td><span class="tick">🎟️</span> Вечерняя по Минску</td><td class="num">130</td><td class="num">3 730</td></tr>
+        <tr><td>Вт</td><td><span class="tick">🎟️</span> Гродно «Легенды над Неманом»</td><td class="num">420</td><td class="num">12 050</td></tr>
+        <tr><td>Ср</td><td><span class="tick">🎟️</span> БелАЗ (Жодино)</td><td class="num">270–300</td><td class="num">7 810–8 610</td></tr>
+        <tr><td>Ср</td><td>Музей истории ВОВ</td><td class="num">~24</td><td class="num">690</td></tr>
+        <tr><td>Чт</td><td><span class="tick">🎟️</span> Мир + Несвиж (от)</td><td class="num">330</td><td class="num">9 470</td></tr>
+        <tr><td>Пт</td><td>Страна мини + Нац. худ. музей</td><td class="num">~50</td><td class="num">1 435</td></tr>
+        <tr><td>Пт</td><td><span class="tick">🎟️</span> Аливария (исторический маршрут)</td><td class="num">80</td><td class="num">2 300</td></tr>
+        <tr><td>Сб</td><td><span class="tick">🎟️</span> Хатынь + Курган Славы</td><td class="num">170</td><td class="num">4 880</td></tr>
+        <tr><td>Сб/Вс</td><td><span class="tick">🎟️</span> Смотровая НББ</td><td class="num">20–30</td><td class="num">570–860</td></tr>
+        <tr><td>опц.</td><td>Аквапарк «Лебяжий»</td><td class="num">~60</td><td class="num">1 720</td></tr>
+        <tr class="total"><td>Итого</td><td>экскурсии + музеи (+ НББ + Аливария)</td><td class="num">~1 494–1 534</td><td class="num">~42 930–44 030</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="notes">
+    <p><b>Логика еды:</b> Пн Бульбашы → Ср Литвины → Пт Раковское → Сб лёгкий повтор → <b>Вс Камяніца + прощальный МонеМане</b>. <b>Пн 09:</b> только завтрак в отеле + еда из сумки. Выезды Вт/Чт — быстрый ужин. Чт: обед в туре.</p>
+    <p><b>Логистика еды (от «Виктории»):</b> сильные кластеры — Немига, Раковское (Фрунзенская), Победителей. Слабые узлы: Ср завтрак (не Зерно 46 перед БелАЗом); Пт Комаровка → Синяя птица (метро/такси); Сб обед — филиал под «отель vs НББ». После 21:30 с выездов — только Немига / Победителей.</p>
+    <p><b>Не планируем:</b> Парк Горького (Даша); заходы в кафе в пн утром; «Сова» как кофейня.</p>
+    <p><b>Отель:</b> <b>«Виктория»</b>, пр. Победителей, 59 · до 9 ноября включительно; час чек-аута — на ресепшене. Велнес: SPA в соседнем «Виктория &amp; СПА» (59А) и/или опциональный аквапарк «Лебяжий».</p>
+    <p><b>Оплата экскурсий:</b> Sputnik8 — предоплата на сайте / остаток на месте; карта РФ; полный возврат при отмене за 48 ч. Смотровая НББ — только через <a href="https://www.nlb.by/content/chitatelyu/bilety-online/" target="_blank" rel="noopener">nlb.by/bilety-online</a> (виджет Megavenue, кнопка «Купить» проверена 30.10.2026).</p>
+    <p><b>Курс для прикидки:</b> 1 BYN ≈ 28,7 ₽. Цены экскурсий сверены с Sputnik8 30.10.2026 (актуальные «от» на сайте часто чуть ниже из‑за акций — сверять при покупке).</p>
+  </div>
+
+  <div class="foot">Маршрут обновлён 01.11.2026. Отель: «Виктория», Победителей 59. Ср: БелАЗ. Пт: Аливария. Вс прощальный: МонеМане. Сверху: блок «сейчас / дальше» по локальному времени. Слоты поезда 02/09 (туда 06:18→13:24, обратно 09:50→17:59). Логистика еды (Немига / Раковское / слабые узлы Ср·Пт·Сб). Билеты: Sputnik8 + nlb.by + alivariamuseum.by. Гастро — Wheretoeat Belarus 2026, BestBelarus, Onliner/coffeeroom, 2ГИС/Яндекс, комментарии Даши. Бронь топов — заранее. Даты выездов — в календаре при покупке.</div>
+</div>
+<script>
+(function () {
+  var YEAR = 2026;
+  var MON = { 'янв': 0, 'фев': 1, 'мар': 2, 'апр': 3, 'май': 4, 'июн': 5, 'июл': 6, 'авг': 7, 'сен': 8, 'окт': 9, 'ноя': 10, 'дек': 11 };
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function fmtHM(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+  function fmtDur(ms) {
+    if (ms < 0) ms = 0;
+    var m = Math.round(ms / 60000);
+    if (m < 60) return m + ' мин';
+    var h = Math.floor(m / 60), r = m % 60;
+    return r ? h + ' ч ' + r + ' мин' : h + ' ч';
+  }
+  function parseTimePart(s) {
+    var m = String(s).replace(/[~≈\s]/g, '').match(/(\d{1,2}):(\d{2})/);
+    if (!m) return null;
+    return { h: +m[1], mi: +m[2] };
+  }
+  function atDate(y, mo, day, h, mi) {
+    return new Date(y, mo, day, h, mi, 0, 0);
+  }
+  function labelFromSlot(li) {
+    var h3 = li.querySelector('.slot-body h3');
+    if (h3 && h3.textContent.trim()) return h3.textContent.trim().replace(/\s+/g, ' ');
+    var p = li.querySelector('.slot-body > p');
+    if (!p) p = li.querySelector('.slot-body p');
+    if (!p) return 'Слот';
+    var t = p.textContent.trim().replace(/\s+/g, ' ');
+    if (t.length > 90) t = t.slice(0, 87) + '…';
+    return t || 'Слот';
+  }
+  function parseSlots() {
+    var out = [];
+    document.querySelectorAll('section.day').forEach(function (sec) {
+      var dnum = sec.querySelector('.date .dnum');
+      var monEl = sec.querySelector('.date .mon');
+      if (!dnum || !monEl) return;
+      var day = parseInt(dnum.textContent, 10);
+      var monKey = monEl.textContent.trim().toLowerCase().slice(0, 3);
+      var mo = MON[monKey];
+      if (mo == null || !day) return;
+      sec.querySelectorAll('li.slot').forEach(function (li) {
+        var te = li.querySelector('time');
+        if (!te) return;
+        var raw = te.textContent.trim();
+        if (!raw || raw === '—' || raw === '-') return;
+        var range = raw.match(/(\d{1,2}:\d{2})\s*[–—\-]\s*(\d{1,2}:\d{2})/);
+        var startP, endP = null;
+        if (range) {
+          startP = parseTimePart(range[1]);
+          endP = parseTimePart(range[2]);
+        } else {
+          startP = parseTimePart(raw);
+        }
+        if (!startP) return;
+        out.push({
+          start: atDate(YEAR, mo, day, startP.h, startP.mi),
+          endExplicit: endP ? atDate(YEAR, mo, day, endP.h, endP.mi) : null,
+          label: labelFromSlot(li),
+          timeRaw: raw
+        });
+      });
+    });
+    out.sort(function (a, b) { return a.start - b.start; });
+    for (var i = 0; i < out.length; i++) {
+      if (out[i].endExplicit) out[i].end = out[i].endExplicit;
+      else if (i + 1 < out.length) out[i].end = out[i + 1].start;
+      else out[i].end = new Date(out[i].start.getTime() + 60 * 60000);
+    }
+    return out;
+  }
+
+  var slots = parseSlots();
+  var elNowT = document.getElementById('nn-now-title');
+  var elNowM = document.getElementById('nn-now-meta');
+  var elNextT = document.getElementById('nn-next-title');
+  var elNextM = document.getElementById('nn-next-meta');
+
+  function tick() {
+    var now = new Date();
+    if (!slots.length) {
+      elNowT.textContent = 'Нет слотов';
+      elNowM.textContent = '';
+      elNextT.textContent = '—';
+      elNextM.textContent = '';
+      return;
+    }
+    var first = slots[0], last = slots[slots.length - 1];
+    var cur = null, nxt = null;
+    for (var i = 0; i < slots.length; i++) {
+      if (now >= slots[i].start && now < slots[i].end) { cur = slots[i]; nxt = slots[i + 1] || null; break; }
+      if (now < slots[i].start) { nxt = slots[i]; break; }
+    }
+    if (now < first.start) {
+      elNowT.textContent = 'Ещё не началось';
+      elNowM.textContent = 'Старт ' + fmtHM(first.start) + ' · через ' + fmtDur(first.start - now);
+      elNextT.textContent = first.label;
+      elNextM.textContent = first.timeRaw + ' · через ' + fmtDur(first.start - now);
+      return;
+    }
+    if (now >= last.end) {
+      elNowT.textContent = 'Поездка завершена';
+      elNowM.textContent = 'Последний слот закончился';
+      elNextT.textContent = '—';
+      elNextM.textContent = '';
+      return;
+    }
+    if (cur) {
+      elNowT.textContent = cur.label;
+      elNowM.textContent = cur.timeRaw + ' · осталось ' + fmtDur(cur.end - now);
+      if (nxt) {
+        elNextT.textContent = nxt.label;
+        elNextM.textContent = nxt.timeRaw + ' · через ' + fmtDur(nxt.start - now);
+      } else {
+        elNextT.textContent = 'День окончен';
+        elNextM.textContent = 'После этого слота — пауза';
+      }
+    } else if (nxt) {
+      elNowT.textContent = 'Пауза';
+      elNowM.textContent = 'До следующего · ' + fmtDur(nxt.start - now);
+      elNextT.textContent = nxt.label;
+      elNextM.textContent = nxt.timeRaw + ' · через ' + fmtDur(nxt.start - now);
+    }
+  }
+
+  tick();
+  setInterval(tick, 30000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) tick(); });
+})();
+</script>
+</body>
+</html>
